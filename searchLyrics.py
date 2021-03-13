@@ -124,5 +124,5 @@ def searchLyricsBySongAndArtist(song_name, artist_name):
 if __name__ == "__main__":
     # change song_name and artist_name
     song_name = "春雷"
-    artist_name = "sfoajiafsoiofj"
+    artist_name = "The Birthday"
     searchLyricsBySongAndArtist(song_name, artist_name)
