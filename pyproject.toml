@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "search_lyrics"
+version = "0.1.0"
+description = "search lyrics by song name using Uta-net"
+authors = ["nozzle <nozzlex3@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.25.1"
+beautifulsoup4 = "^4.9.3"
+reppy = "^0.4.14"
+autopep8 = "^1.5.5"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,13 @@
+# data
+
+# python
+.venv/
+poetry.lock
+__pycache__/
+
+# VSCode
+.vscode/
+settings.json
+
+# Mac files
+.DS_Store
