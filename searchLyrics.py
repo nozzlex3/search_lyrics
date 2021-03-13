@@ -95,8 +95,12 @@ def searchLyricsBySongAndArtist(song_name, artist_name):
     if len(search_results_list) == 1:
         song_uri = parser.song_uri[0]
     else:
-        song_index = parser.artist_name.index(artist_name)
-        song_uri = parser.song_uri[song_index]
+        try:
+            song_index = parser.artist_name.index(artist_name)
+            song_uri = parser.song_uri[song_index]
+        except ValueError:
+            print("Not found")
+            return False
 
     long_song_uri = urllib.parse.urljoin(BASE_URI, song_uri)
 
@@ -120,5 +124,5 @@ def searchLyricsBySongAndArtist(song_name, artist_name):
 if __name__ == "__main__":
     # change song_name and artist_name
     song_name = "春雷"
-    artist_name = "The Birthday"
+    artist_name = "sfoajiafsoiofj"
     searchLyricsBySongAndArtist(song_name, artist_name)
