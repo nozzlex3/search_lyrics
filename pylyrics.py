@@ -39,7 +39,7 @@ class UtanetHTMLParser(HTMLParser):
             self.found_artist = False
 
 
-def isValidResponse(uri):
+def is_valid_response(uri):
     # 正常なhttp応答か確認
     response = requests.get(uri)
     code = response.status_code
@@ -49,7 +49,7 @@ def isValidResponse(uri):
         return False
 
 
-def isAllowedAccess(uri, base_uri):
+def is_allowed_access(uri, base_uri):
     # robotsで禁止されているアクセスでないか確認
     robots = Robots.fetch(base_uri+"/robots.txt")
     agent = robots.agent("*")
@@ -59,18 +59,18 @@ def isAllowedAccess(uri, base_uri):
         return False
 
 
-def searchLyricsBySongAndArtist(song_name, artist_name):
+def search_lyrics_by_song_and_artisit(song_name, artist_name):
     BASE_URI = "https://www.uta-net.com/"
     search_uri = "https://www.uta-net.com/search/?Aselect=2&Bselect=3&Keyword=" + \
         song_name+"&sort=4"
     # 正常にhttp接続できたか確認
-    if isValidResponse(BASE_URI):
+    if is_valid_response(BASE_URI):
         pass
     else:
         print("Invalid Response")
         exit(1)
 
-    if isAllowedAccess(search_uri, BASE_URI):
+    if is_allowed_access(search_uri, BASE_URI):
         pass
     else:
         print("Disallowed Access")
@@ -104,7 +104,7 @@ def searchLyricsBySongAndArtist(song_name, artist_name):
 
     long_song_uri = urllib.parse.urljoin(BASE_URI, song_uri)
 
-    if isAllowedAccess(long_song_uri, BASE_URI):
+    if is_allowed_access(long_song_uri, BASE_URI):
         pass
     else:
         print("This access is disallowed")
@@ -113,11 +113,10 @@ def searchLyricsBySongAndArtist(song_name, artist_name):
     response = requests.get(long_song_uri)
     soup = BeautifulSoup(response.content, "html.parser")
     lyrics_html = soup.find("div", attrs={"id": "kashi_area"})
-    re_pattern = "<div id=\"kashi_area\" itemprop=\"text\">(.+)</br></br></div>"
+    re_pattern = "<div id=\"kashi_area\" itemprop=\"text\">(.+)</div>"
     lyrics_re_match_result = re.match(re_pattern, str(lyrics_html))
     lyrics_re_sub_result = re.sub(
         "<br>|<br/>", "\n", lyrics_re_match_result.group(1))
-    print(lyrics_re_sub_result)
     return lyrics_re_sub_result
 
 
@@ -125,4 +124,5 @@ if __name__ == "__main__":
     # change song_name and artist_name
     song_name = "春雷"
     artist_name = "The Birthday"
-    searchLyricsBySongAndArtist(song_name, artist_name)
+    lyrics=search_lyrics_by_song_and_artisit(song_name, artist_name)
+    print(lyrics)

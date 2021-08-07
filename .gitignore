@@ -4,6 +4,7 @@
 .venv/
 poetry.lock
 __pycache__/
+.python-version
 
 # VSCode
 .vscode/
